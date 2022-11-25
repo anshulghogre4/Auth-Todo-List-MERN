@@ -10,7 +10,7 @@
   - Title (Title for all the task e.g Sunday)
   - Tasks ( eg. on Sunday I'll do shopping, family time, movies etc.)
 
-- No of controollers will be there for the title and Tasks
+- No of controllers will be there for the title and Tasks
 
 - First Intention to create title thna fter adding it to the list I'll add extra task under it.
 
