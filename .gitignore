@@ -1,0 +1,4 @@
+#files to be ignored
+
+*backend/.env
+ backend/node_modules/
