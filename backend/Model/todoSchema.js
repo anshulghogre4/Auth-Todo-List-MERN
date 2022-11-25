@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const todoSchema = new mongoose.Schema({
 
     Title:{
-        Type : String,
+        type : String,
         Required : true,
     },
-    Tasks: [Tasks],
+    Tasks: []
 });
 
-exports.module = mongoose.model("todo",todoSchema);
+module.exports = mongoose.model("todo",todoSchema);
