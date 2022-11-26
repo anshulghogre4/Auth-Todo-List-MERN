@@ -23,3 +23,9 @@
 - Postman
 - Mongoose(will connect to MongoDB)
 - Other required packages.
+
+---
+
+## Plan
+
+![pic1](./PlanImage.png)
