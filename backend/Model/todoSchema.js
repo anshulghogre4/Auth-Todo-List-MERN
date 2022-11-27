@@ -7,6 +7,9 @@ const todoSchema = new mongoose.Schema({
         Required : true,
     },
     Tasks: [String]
+},
+{
+    timestamps : true
 });
 
 module.exports = mongoose.model("todo",todoSchema);

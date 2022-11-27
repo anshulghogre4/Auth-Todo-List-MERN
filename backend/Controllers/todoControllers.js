@@ -20,10 +20,15 @@ exports.createTodo = async  (req, res) => {
         const todo = await Todo.create({
             Title
         });
+
+        console.log(todo.createdAt);
+        const creationTime = todo.createdAt;
+
         res.status(200).json({
             success : true,
             message: "Todo Created",
-            todo
+            todo,
+            creationTime
         })
     } catch (error) {
         console.log(error)
@@ -254,4 +259,16 @@ exports.toSearch = async (req, res) =>{
    
 
 
+}
+
+
+//to Sort according to date and time
+
+exports.sortDateAndTime = async (req, res) =>{
+    const sortedTodosAtCreation = await Todo.find().sort({createdAt: -1});
+    const sortedTodosAtUpdation = await Todo.find().sort({updatedAt: -1});
+    res.status(200).json({
+        sortedTodosAtCreation,
+        sortedTodosAtUpdation
+    })
 }

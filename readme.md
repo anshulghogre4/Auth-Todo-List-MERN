@@ -12,7 +12,7 @@
 
 - No of controllers will be there for the title and Tasks
 
-- First Intention to create title thna fter adding it to the list I'll add extra task under it.
+- First Intention to create title then after adding it to the list I'll add extra task under it.
 
 ## Technologies (Will be used in it)
 

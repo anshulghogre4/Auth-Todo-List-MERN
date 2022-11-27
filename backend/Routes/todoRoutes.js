@@ -1,7 +1,7 @@
 const express = require('express')
 
 const router = express.Router()
-const { home, createTodo, getAllTodos, getATodo, editTodoTitle, deleteTodo, tasksForATodo, getAllTasksForATodo, editTaskForATodo, deleteTaskForATodo, toSearch } = require("../Controllers/todoControllers");
+const { home, createTodo, getAllTodos, getATodo, editTodoTitle, deleteTodo, tasksForATodo, getAllTasksForATodo, editTaskForATodo, deleteTaskForATodo, toSearch, sortDateAndTime } = require("../Controllers/todoControllers");
 
 
 
@@ -17,6 +17,7 @@ router.get("/getAllTheTasksForATodo/:_id", getAllTasksForATodo);
 router.put("/editTaskForATodo/:_id",editTaskForATodo);
 router.put("/deleteTaskForATodo/:_id", deleteTaskForATodo);
 router.get("/toSearch", toSearch);
+router.get("/sortByDateAndTime", sortDateAndTime);
 
 
  module.exports = router;
