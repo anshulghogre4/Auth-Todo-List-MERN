@@ -15,9 +15,9 @@ const auth = (req, res, next) =>{
     //verify token
 
     try {
-        const decode = jwt.verify(token, "chuppp" ); //it'll give us decode value
-        console.log("++"+decode.id);
-        req.user =decode.id; // here you can name req.xyz...to any name
+        const decode = jwt.verify(token, process.env.SECRET ); //it'll give us decode value
+        console.log("++"+decode);
+        req.user =decode; // here you can name req.xyz...to any name
     } catch (error) {
         res.status(401).send("Token is invalid");
     }

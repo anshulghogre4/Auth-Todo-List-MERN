@@ -5,6 +5,7 @@ const todoSchema = new mongoose.Schema({
             type : mongoose.Schema.Types.ObjectId,
             ref : "user",
             Required :true,
+            unique : true,
         },
     Title:{
         type : String,

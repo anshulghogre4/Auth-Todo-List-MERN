@@ -10,6 +10,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use("/",todoRouters);
 app.use("/",userRoutes);
-app.use(cookieParser());
+// app.use(cookieParser());
 
 module.exports =app;

@@ -1,6 +1,6 @@
 const Todo = require("../Model/todoSchema");
 const auth = require("../middleware/auth");
-const { default: mongoose } = require("mongoose");
+const { default: mongoose, Mongoose } = require("mongoose");
 const cookieParser = require('cookie-parser');
 
 
@@ -11,20 +11,20 @@ exports.home =  (req, res) =>{
 }
 
 //to created Todo Title
-exports.createTodo = auth,async  (req, res) => {
+exports.createTodo = async  (req, res) => {
 
-
+        console.log("it came inside it")
 
     try {
 
-        const userID = req.user;
+        const userID = req.user.id;
         console.log(userID);
 
         if (!userID)  return res.status(401).send("User Not found!");
         
        
-        console.log("existing user" + user);
-        if (!user)  return res.status(401).send("User Not found!");
+        console.log("existing user" + userID);
+        if (!userID)  return res.status(401).send("User Not found!");
 
         const {Title} = req.body;
  
@@ -58,8 +58,10 @@ exports.getAllTodos= async (req, res) => {
 
     try {
 
-        const todos = await Todo.find();
-
+        const uID = req.user.id;
+            console.log(uID);
+        const todos = await Todo.find({userID : uID});
+            console.log(todos);
         res.status(200).json({
             success : true,
             todos
