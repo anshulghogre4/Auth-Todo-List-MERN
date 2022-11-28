@@ -1,4 +1,7 @@
 const Todo = require("../Model/todoSchema");
+const auth = require("../middleware/auth");
+const { default: mongoose } = require("mongoose");
+const cookieParser = require('cookie-parser');
 
 
 //for home route
@@ -8,9 +11,21 @@ exports.home =  (req, res) =>{
 }
 
 //to created Todo Title
-exports.createTodo = async  (req, res) => {
+exports.createTodo = auth,async  (req, res) => {
+
+
 
     try {
+
+        const userID = req.user;
+        console.log(userID);
+
+        if (!userID)  return res.status(401).send("User Not found!");
+        
+       
+        console.log("existing user" + user);
+        if (!user)  return res.status(401).send("User Not found!");
+
         const {Title} = req.body;
  
 
@@ -18,7 +33,9 @@ exports.createTodo = async  (req, res) => {
             alert("Please type the title!");
         }
         const todo = await Todo.create({
-            Title
+            Title,
+            userID
+
         });
 
         console.log(todo.createdAt);
@@ -27,8 +44,7 @@ exports.createTodo = async  (req, res) => {
         res.status(200).json({
             success : true,
             message: "Todo Created",
-            todo,
-            creationTime
+            todo
         })
     } catch (error) {
         console.log(error)

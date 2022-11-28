@@ -3,19 +3,19 @@ const express = require('express')
 const router = express.Router()
 const { home, createTodo, getAllTodos, getATodo, editTodoTitle, deleteTodo, tasksForATodo, getAllTasksForATodo, editTaskForATodo, deleteTaskForATodo, toSearch, sortDateAndTime } = require("../Controllers/todoControllers");
 
+var cookieParser = require('cookie-parser')
+router.use(cookieParser())
 
-
-
-router.get("/", home);
-router.post("/createTodo", createTodo);
-router.get("/getAllTodos", getAllTodos);
-router.get("/getATodo/:_id", getATodo);
-router.put("/editATodo/:_id", editTodoTitle);
-router.delete("/deleteATodo/:_id", deleteTodo);
-router.put("/addATaskInTodo/:_id", tasksForATodo);
-router.get("/getAllTheTasksForATodo/:_id", getAllTasksForATodo);
-router.put("/editTaskForATodo/:_id",editTaskForATodo);
-router.put("/deleteTaskForATodo/:_id", deleteTaskForATodo);
+router.get("/api", home);
+router.post("/api/todo/", createTodo);
+router.get("/api/todo", getAllTodos);
+router.get("/api/ATodo/:_id", getATodo);
+router.put("/api/ATodo/:_id", editTodoTitle);
+router.delete("/api/ATodo/:_id", deleteTodo);
+router.put("/api/TaskInTodo/:_id", tasksForATodo);
+router.get("/api/tasksInTodo/:_id", getAllTasksForATodo);
+router.put("/api/TaskInTodo/:_id",editTaskForATodo);
+router.put("/api/TaskInTodo/:_id", deleteTaskForATodo);
 router.get("/toSearch", toSearch);
 router.get("/sortByDateAndTime", sortDateAndTime);
 
