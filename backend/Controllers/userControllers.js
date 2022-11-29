@@ -40,7 +40,7 @@ const auth = require("../middleware/auth");
 
             //create a token
 
-            const token = jwt.sign({id : user._id  },process.env.SECRET,{expiresIn:"2h"})
+            const token = jwt.sign({id : user._id  },process.env.SECRET)
                                                         // we can use env variable here
                 user.token =token; //filling the token
                 user.password = undefined; //don't want to send this pw 
@@ -77,7 +77,7 @@ const auth = require("../middleware/auth");
 
         if (user && (await bcryptJS.compare(password,user.password)) ) {
            
-           const token =  jwt.sign({id :user._id},process.env.SECRET, {expiresIn : "2h"});
+           const token =  jwt.sign({id :user._id},process.env.SECRET);
            user.password = undefined;
            user.token =token;
 
@@ -86,25 +86,19 @@ const auth = require("../middleware/auth");
                 httpOnly : true,
            }
 
-           res.status(200).cookie("token",token,options).json({
+         return  res.status(200).cookie("token",token,options).json({
                 success : true,
                 token,
                 user
            })
         }
-
+        
     } catch (error) {
         console.log(error);
-        res.status(401).send("Bad Request");
+      return  res.status(401).send("Bad Request");
     }
 };
 
-       exports.dashboard =  auth, (req, res) => {
-           
- 
-    res.send("Welcome to dashboard")
-
-};
-
+     
 
 

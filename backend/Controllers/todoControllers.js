@@ -22,9 +22,7 @@ exports.createTodo = async  (req, res) => {
 
         if (!userID)  return res.status(401).send("User Not found!");
         
-       
         console.log("existing user" + userID);
-        if (!userID)  return res.status(401).send("User Not found!");
 
         const {Title} = req.body;
  
@@ -39,7 +37,7 @@ exports.createTodo = async  (req, res) => {
         });
 
         console.log(todo.createdAt);
-        const creationTime = todo.createdAt;
+      
 
         res.status(200).json({
             success : true,
@@ -86,9 +84,10 @@ exports.getATodo = async (req, res) =>{
         const uniqueUser = await Todo.find({userID : uID});
 
         if ( uniqueUser) {
-        const todoID = await Todo.findById(req.params._id);
+        const todoID = await Todo.findById(req.params._id); // pass todo id
+
         console.log(todoID);
-        res.status(200).json({
+         return res.status(200).json({
             success : true,
             todoID
         })
@@ -111,15 +110,13 @@ exports.editTodoTitle = async (req, res) => {
         const uniqueUser = await Todo.find({userID : uID});
 
         if (uniqueUser) {
-            
-        
-            
+             
         const editedTodo = await Todo.findByIdAndUpdate(req.params._id, req.body);
                 console.log(req.body);
             console.log(editedTodo)
            const savedTodo =  await editedTodo.save();
            console.log(savedTodo)
-        res.status(201).json({
+       return res.status(201).json({
             success : true,
             message :"Todo edited!",
         })}
@@ -145,7 +142,7 @@ exports.deleteTodo= async (req, res) => {
         if (uniqueUser) {
         const deletedTodo = await Todo.findByIdAndDelete(req.params._id);
             console.log(deletedTodo)
-        res.status(201).json({
+      return res.status(201).json({
             success : true,
             message :"Todo deleted!"
         })}
@@ -181,7 +178,7 @@ exports.tasksForATodo = async (req, res) =>{
             todo.Tasks.push(taskToBeAdded);
             await todo.save();
             console.log(todo);
-            res.status(201).json({
+           return  res.status(201).json({
                 success : true,
                 message : "Task added in your todo!",
                 todo 
@@ -216,7 +213,7 @@ console.log( todo);
 
   const allTasks =  await Todo.find(todo);
 
-    res.status(201).json({
+   return  res.status(201).json({
         success  : true,
         allTasks 
     })}
@@ -249,7 +246,7 @@ exports.editTaskForATodo = async (req, res) => {
        
         targetTodo.Tasks.splice(taskIndex,1,newTaskText);
         await targetTodo.save();
-        res.status(200).json({
+        return res.status(200).json({
             success : true,
             message : "Task edited!",
             targetTodo
@@ -281,7 +278,7 @@ exports.deleteTaskForATodo = async (req, res) => {
     targetTodo.Tasks.splice(taskToBeDeleted,1); // index will be removed and entering nothing
     await targetTodo.save();
     console.log(targetTodo);
-    res.status(200).json({
+    return res.status(200).json({
         success :true,
         message :"Task got deleted",
         targetTodo
@@ -316,12 +313,12 @@ exports.toSearch = async (req, res) =>{
         const searchedTodos = await Todo.find(  {  $and :[ {userID : uID},{$or : [{"Title": {$regex: search, $options:'i'}},{"Tasks": {$regex: search, $options:'i'}}]}]})
                 console.log(searchedTodos);
                 if (searchedTodos.length>0) {
-                    res.status(200).json({
+                  return  res.status(200).json({
                         success :true,
                         searchedTodos
                     })
                 } else {
-                    res.status(200).json({
+                  return  res.status(200).json({
                         success :false,
                         message : "No such todo or task exist!"
                     })
@@ -352,6 +349,8 @@ exports.sortDateAndTime = async (req, res) =>{
     if (uniqueUser) {
     const sortedTodosAtCreation = await Todo.find({userID : uID}).sort({createdAt: -1});
     const sortedTodosAtUpdation = await Todo.find({userID : uID}).sort({updatedAt: -1});
+        
+
     res.status(200).json({
         sortedTodosAtCreation,
         sortedTodosAtUpdation

@@ -5,7 +5,7 @@ const { model } = require("mongoose");
 
 const auth = (req, res, next) =>{
 
-    const {token} =  req.cookies; 
+    const {token} =  req.cookies || req.headers; 
     console.log(req.cookies); 
 
     if (!token){
@@ -19,7 +19,8 @@ const auth = (req, res, next) =>{
         console.log("++"+decode);
         req.user =decode; // here you can name req.xyz...to any name
     } catch (error) {
-        res.status(401).send("Token is invalid");
+        console.log(error)
+        res.status(401).send("Token is invalid or session expired");
     }
 return next();
 }

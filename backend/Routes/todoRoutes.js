@@ -2,7 +2,8 @@ const express = require('express')
 
 const router = express.Router()
 const { home, createTodo, getAllTodos, getATodo, editTodoTitle, deleteTodo, tasksForATodo, getAllTasksForATodo, editTaskForATodo, deleteTaskForATodo, toSearch, sortDateAndTime } = require("../Controllers/todoControllers");
-
+const cookieParser = require('cookie-parser');
+const auth = require("../middleware/auth")
 
 router.get("/api", home);
 router.post("/api/todo/", createTodo);
