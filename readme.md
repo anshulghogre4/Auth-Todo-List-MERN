@@ -4,7 +4,7 @@
 
 ## Task
 
-- In this assignment I have to create full backend procedure for the todo list.
+- In this assignment I have to create full backend procedure for the todo list with MERN.
 - Where Schema model will be having:
 
   - Title (Title for all the task e.g Sunday)
