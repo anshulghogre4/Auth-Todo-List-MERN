@@ -5,7 +5,7 @@ const { home, createTodo, getAllTodos, getATodo, editTodoTitle, deleteTodo, task
 const cookieParser = require('cookie-parser');
 const auth = require("../middleware/auth")
 
-router.get("/api", home);
+router.get("/", home);
 router.post("/api/todo/", createTodo);
 router.get("/api/todo", getAllTodos);
 router.get("/api/ATodo/:_id", getATodo);
