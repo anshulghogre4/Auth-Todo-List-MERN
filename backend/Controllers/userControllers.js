@@ -1,7 +1,7 @@
-const User = require("../Model/userSchema");
+const User = require("../Model/userSchema.js");
 const jwt = require("jsonwebtoken");
 const bcryptJS = require("bcryptjs");
-const auth = require("../middleware/auth");
+const auth = require("../middleware/auth.js");
 
 
 
