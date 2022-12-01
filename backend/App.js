@@ -19,4 +19,4 @@ app.use("/", auth, todoRouters,userRoutes);
 // app.use("/", userRoutes);
 
 
-module.exports =app;
+module.exports =App;
