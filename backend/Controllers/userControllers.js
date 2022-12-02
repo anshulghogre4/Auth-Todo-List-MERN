@@ -9,8 +9,7 @@ const auth = require("../middleware/auth.js");
     exports.registration = async (req, res)=>{
     
     try {
-             const {firstName,lastName,email,password} = req.body;   
-            console.log("---> "+firstName,lastName,email,password);
+             const {firstName,lastName,email,password} = req.body;          
         if (!(firstName && lastName && email && password)) {
             res.status(401).send("All fields are required!");
         } 
@@ -88,12 +87,14 @@ const auth = require("../middleware/auth.js");
                 expires : new Date(Date.now()+ 3*24*60*60*1000 ), //to expire in 3 days for 3 hours (3*60*60*1000)
                 httpOnly : true,
            }
-
+                console.log("--->logged in")
          return  res.status(200).cookie("token",token,options).json({
                 success : true,
                 token,
                 user
            })
+        }else{
+           return  res.status(400).send("Password didn't match!")
         }
         
     } catch (error) {

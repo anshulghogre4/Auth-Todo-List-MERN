@@ -1,13 +1,45 @@
-import React from 'react'
+import axios from 'axios';
+import React,{useState} from 'react';
+import {NavLink,useNavigate} from "react-router-dom";
 
 function Login() {
+  const navigateTo = useNavigate();
+      const [email,setEmail] = useState("");
+      const [password, setPassword] =useState("");
+
+     
+        const submitLogin = async (e) =>{
+            
+            e.preventDefault();
+            const data = {
+              email,
+              password
+            };
+            const resp = await axios.post("/api/u/login",data);
+            console.log(resp);
+             
+
+           
+
+            if (resp.data.success) {
+                  navigateTo("/dashboard");
+                  window.alert("Login Successfull!");
+            } else {
+              window.alert("Invalid Credentials");
+            }
+
+           
+
+        }
+
+
   return (
     <>
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="text-center font-bold text-2xl">Log in</div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+            <form onSubmit={submitLogin} className="space-y-6" action="#" method="POST">
               <div>
                 <label
                   htmlFor="email"
@@ -21,6 +53,8 @@ function Login() {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    value={email}
+                    onChange={(e)=>{setEmail(e.target.value)}}
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     
@@ -40,6 +74,8 @@ function Login() {
                     name="password"
                     type="password"
                     autoComplete="current-password"
+                    value={password}
+                    onChange={(e)=>{setPassword(e.target.value)}}
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     
