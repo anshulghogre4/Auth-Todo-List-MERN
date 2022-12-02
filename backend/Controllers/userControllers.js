@@ -45,7 +45,10 @@ const auth = require("../middleware/auth.js");
                 user.token =token; //filling the token
                 user.password = undefined; //don't want to send this pw 
 
-                res.status(201).send(user);
+                res.status(201).json({
+                    success : true,
+                    user
+                })
 
     } catch (error) {
         
