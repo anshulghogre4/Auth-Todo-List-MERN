@@ -6,17 +6,17 @@ const cookieParser = require('cookie-parser');
 const auth = require("../middleware/auth")
 
 router.get("/", home);
-router.post("/api/todo/", createTodo);
-router.get("/api/todo", getAllTodos);
-router.get("/api/ATodo/:_id", getATodo);
-router.put("/api/editATodo/:_id", editTodoTitle);
-router.delete("/api/deleteATodo/:_id", deleteTodo);
-router.put("/api/insertTaskInTodo/:_id", tasksForATodo);
-router.get("/api/TaskInTodo/:_id", getAllTasksForATodo);
-router.put("/api/editTaskInTodo/:_id", editTaskForATodo);
-router.put("/api/deleteTaskInTodo/:_id", deleteTaskForATodo);
-router.get("/toSearch", toSearch);
-router.get("/sortByDateAndTime", sortDateAndTime);
+router.post("/api/todo/", auth, createTodo);
+router.get("/api/todo", auth, getAllTodos);
+router.get("/api/ATodo/:_id", auth, getATodo);
+router.put("/api/editATodo/:_id", auth, editTodoTitle);
+router.delete("/api/deleteATodo/:_id", auth, deleteTodo);
+router.put("/api/insertTaskInTodo/:_id", auth, tasksForATodo);
+router.get("/api/TaskInTodo/:_id", auth, getAllTasksForATodo);
+router.put("/api/editTaskInTodo/:_id", auth, editTaskForATodo);
+router.put("/api/deleteTaskInTodo/:_id", auth, deleteTaskForATodo);
+router.get("/toSearch", auth, toSearch);
+router.get("/sortByDateAndTime", auth, sortDateAndTime);
 
 
  module.exports = router;
