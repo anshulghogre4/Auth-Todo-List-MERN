@@ -3,8 +3,8 @@ import TodoForm from './todos/TodoForm'
 import TodoLists from './todos/TodoLists'
 function Dashboard() {
   return (
-    <div>
-      hello
+    <div className='flex flex-col items-center justify-center h-[100vh]'>
+ 
         <TodoForm/>
         <TodoLists/>
     </div>

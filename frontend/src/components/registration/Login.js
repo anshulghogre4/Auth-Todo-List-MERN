@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React,{useState} from 'react';
 import {NavLink,useNavigate} from "react-router-dom";
+import {toast} from "react-hot-toast";
 
 function Login() {
   const navigateTo = useNavigate();
@@ -19,16 +20,12 @@ function Login() {
             console.log(resp);
              
 
-           
-
-            if (resp.data.success) {
-                  navigateTo("/dashboard");
-                  window.alert("Login Successfull!");
-            } else {
-              window.alert("Invalid Credentials");
-            }
-
-           
+           if (resp.data.success) {
+            navigateTo("/dashboard");
+            window.alert("Login Successfull!");
+           } else {
+            toast.error("Invalid Credentials")
+           }
 
         }
 

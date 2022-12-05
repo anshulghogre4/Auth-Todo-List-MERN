@@ -4,7 +4,7 @@ const bcryptJS = require("bcryptjs");
 const auth = require("../middleware/auth.js");
 
 
-
+//register
 
     exports.registration = async (req, res)=>{
     
@@ -62,6 +62,8 @@ const auth = require("../middleware/auth.js");
      
 };
 
+
+//login
    exports.login = async  (req, res)=>{
 
     try {
@@ -104,5 +106,26 @@ const auth = require("../middleware/auth.js");
 };
 
      
+//getting user
 
+exports.getUser =async (req, res) =>{
+    try {
+        const user = await User.findById(req.user.id);
+        console.log(user);
+        if (!user) {
+            return res.send("No such user exist");
+        }
+        user.password =undefined;
+
+        res.status(200).json({
+            success :true,
+            user
+        });
+    } catch (error) {
+        res.status(401).json({
+            success: false,
+            message: "Bad request!"
+        });
+    }
+}
 
