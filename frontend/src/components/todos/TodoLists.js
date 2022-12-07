@@ -4,15 +4,17 @@ import React, { useEffect, useState } from 'react'
 function TodoLists() {
 
   const [userTodos, setUserTodos] = useState(null);
+  const [userTasks, setUserTasks] = useState(null);
 
       console.log(userTodos)
     const fetchUserTodos = async () => {
           const resp = await axios.get("/api/todo")
 
-            
+          
 
             if (resp.data.todos.length >0) {
               setUserTodos(resp.data.todos);
+              setUserTasks(resp.data.todos);
             }
     }
   
@@ -65,19 +67,20 @@ function TodoLists() {
                     setTasks("");
             }
 
-            // //getting all tasks for the title
-            //   const [titleTasks, setTitleTasks] = useState(null)
+            //getting all tasks for the title
+              const [titleTasks, setTitleTasks] = useState(null)
 
-            // const getTasksForTitle  = async (titleId) =>{
+            const getTasksForTitle  = async (props) =>{
 
-            //   const resp = await axios.get(`/api/TaskInTodo/${titleId}`)
+              const resp = await axios.get(`/api/TaskInTodo/${props}`)
 
-            //     console.log("checking all tasks",resp)
+                console.log("checking all tasks",resp)
                
-            //   if (resp.data.todo.Tasks.length >0) {
-            //     setTitleTasks(resp.data.todo.Tasks);
-            //   }
-            // }
+              if (resp.data.todo.Tasks.length >0) {
+                setTitleTasks(resp.data.todo);
+              }
+            }
+            
 
             //editing a task in todo title
             const handleEditTaskForTitle = async (user,index) => {
@@ -113,7 +116,7 @@ function TodoLists() {
       
       <label>
         <input className='opacity-0 peer' type="checkbox"/>
-        <div className='flex flex-row items-center justify-between mx-[1rem]'>
+        <div className='flex flex-row items-center justify-between  mx-[1rem]'>
         <div  className='flex flex-row items-center justify-between  '>
       <p className='p-[1.2rem] inline-block cursor-pointer' key={user._id} >{user.Title}</p>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className=" cursor-pointer w-4 h-4 float-right peer-checked:rotate-180 ">
@@ -123,11 +126,11 @@ function TodoLists() {
 
           <div  className='flex flex-row items-center justify-between mx-[1rem] space-x-[2rem]'>
         <button className='bg-gray-300 active:bg-gray-400 px-[0.8rem] rounded-[0.3rem]'
-
+              
           onClick={()=>{handleEditTitle(user)}}
         
         >Edit</button>
-        <button className='bg-red-300 active:bg-red-400 px-[0.8rem] rounded-[0.3rem]'
+        <button className='bg-red-300 active:bg-red-400 px-[0.8rem] rounded-[0.3rem]'  
           onClick={()=>{
             handleDeleteTitle(user)
           }}
@@ -146,29 +149,29 @@ function TodoLists() {
             <input type="text" placeholder='Enter tasks' className='mt-[1.5rem] w-[30rem] h-[2.5rem] rounded-[0.3rem]  px-[1rem] focus:outline-none focus:ring-[0.1rem] focus:ring-gray-500 placeholder:italic  '
             value={tasks}
             onChange={(e)=>{setTasks(e.target.value)}}
+            
             />
             </div>
             <div>
-            <button type='button' onClick={()=>handdleTasksForTitle(user._id)}   className=' relative bg-gray-300 active:bg-gray-400 px-[0.8rem] rounded-[0.3rem] top-[0.8rem] '>Add</button>
+            <button   type='button' onClick={()=>handdleTasksForTitle(user._id)}   className=' relative bg-gray-300 active:bg-gray-400 px-[0.8rem] rounded-[0.3rem] top-[0.8rem] '>Add</button>
             </div>
           </div>
             {/* Tasks inside title */}
-           {userTodos && userTodos.map((todo)=>{
-              
-              return todo.Tasks.map((tasks,index)=>{
-                  return (<div className=' flex flex-row items-center justify-between'>
+                   
+                   { user.Tasks.map((tasks,index)=>{
+                return (<div className=' flex flex-row items-center justify-between'>
              <div>
-             <p className="p-[1.2rem]">{tasks}</p>
+             <p className="p-[1.2rem]" >{tasks}</p>
              </div>
              <div  className='flex flex-row items-center justify-between mr-[2rem] space-x-[2rem]'>
              <button className='bg-gray-300 active:bg-gray-400 px-[0.8rem] rounded-[0.3rem]' onClick={()=>{handleEditTaskForTitle(user,index)}}  >Edit</button>
              <button className='bg-red-300  active:bg-red-400 px-[0.8rem] rounded-[0.3rem]' onClick={()=>{
-              handleDeleteTaskForTitle(user,index)}} >Delete</button>
+              handleDeleteTaskForTitle(user,index)}}  >Delete</button>
              </div>
              </div>)
-                })
+                })}
              
-           })} 
+          
       
 
         </div>
