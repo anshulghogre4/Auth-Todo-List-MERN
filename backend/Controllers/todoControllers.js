@@ -175,9 +175,10 @@ exports.tasksForATodo = async (req, res) =>{
     
             const taskToBeAdded = req.body.Tasks; //It'll acces the key of an Object and will return the value
                 //use "Tasks" as key in postman
+            console.log("--->",todo);
             todo.Tasks.push(taskToBeAdded);
             await todo.save();
-            console.log(todo);
+            console.log("--->",todo);
            return  res.status(201).json({
                 success : true,
                 message : "Task added in your todo!",
@@ -193,7 +194,7 @@ exports.tasksForATodo = async (req, res) =>{
     }
     
 }
-// Get all tasks for a specific todo 
+// Get all tasks for a specific todo title 
 exports.getAllTasksForATodo = async (req, res) =>{
 
     try {
@@ -209,13 +210,14 @@ exports.getAllTasksForATodo = async (req, res) =>{
 if (!todo) { res.status(401).send("Todo doesn't exisit");
 }
 
-console.log( todo);
+                
 
-  const allTasks =  await Todo.find(todo);
+        const tasks = todo.Tasks;
 
    return  res.status(201).json({
         success  : true,
-        allTasks 
+        tasks,
+        todo
     })}
     } catch (error) {
         console.log(error);
