@@ -65,20 +65,44 @@ function TodoLists() {
                     setTasks("");
             }
 
-            //getting all tasks for the title
-              const [titleTasks, setTitleTasks] = useState(null)
+            // //getting all tasks for the title
+            //   const [titleTasks, setTitleTasks] = useState(null)
 
-            const getTasksForTitle  = async (titleId) =>{
+            // const getTasksForTitle  = async (titleId) =>{
 
-              const resp = await axios.get(`/api/TaskInTodo/${titleId}`)
+            //   const resp = await axios.get(`/api/TaskInTodo/${titleId}`)
 
-                console.log("checking all tasks",resp)
+            //     console.log("checking all tasks",resp)
                
-              if (resp.data.todo.Tasks.length >0) {
-                setTitleTasks(resp.data.todo.Tasks);
+            //   if (resp.data.todo.Tasks.length >0) {
+            //     setTitleTasks(resp.data.todo.Tasks);
+            //   }
+            // }
+
+            //editing a task in todo title
+            const handleEditTaskForTitle = async (user,index) => {
+              const newTask = prompt("Enter New task");
+      
+              if(!newTask){
+                alert("Please enter new task to change current task.")
+              }else{
+                const resp = await axios.put(`/api/editTaskInTodo/${user._id}`,{
+                  taskIndex:index,
+                  newTaskText : newTask
+                } )
+                console.log(resp);
               }
+      
             }
 
+
+              //deleting a task for a specific todo title
+              const handleDeleteTaskForTitle= async (user,index) => {
+                const resp = await axios.put(`/api/deleteTaskInTodo/${user._id}`,{
+                  taskToBeDeleted : index
+                })
+                console.log(resp);
+            };
 
   return (
     <div className='shadow-md bg-slate-100/50  w-[50rem] mx-auto mt-[1rem]'>
@@ -131,14 +155,15 @@ function TodoLists() {
             {/* Tasks inside title */}
            {userTodos && userTodos.map((todo)=>{
               
-              return todo.Tasks.map((tasks)=>{
+              return todo.Tasks.map((tasks,index)=>{
                   return (<div className=' flex flex-row items-center justify-between'>
              <div>
              <p className="p-[1.2rem]">{tasks}</p>
              </div>
              <div  className='flex flex-row items-center justify-between mr-[2rem] space-x-[2rem]'>
-             <button className='bg-gray-300 active:bg-gray-400 px-[0.8rem] rounded-[0.3rem]'  >Edit</button>
-             <button className='bg-red-300  active:bg-red-400 px-[0.8rem] rounded-[0.3rem]'>Delete</button>
+             <button className='bg-gray-300 active:bg-gray-400 px-[0.8rem] rounded-[0.3rem]' onClick={()=>{handleEditTaskForTitle(user,index)}}  >Edit</button>
+             <button className='bg-red-300  active:bg-red-400 px-[0.8rem] rounded-[0.3rem]' onClick={()=>{
+              handleDeleteTaskForTitle(user,index)}} >Delete</button>
              </div>
              </div>)
                 })
