@@ -13,9 +13,9 @@ function App() {
     reverseOrder={true}
     />
     <Routes>
-      <Route path="/login" element = {<Login/>}/>
+      <Route path="/" element = {<Login/>}/>
       <Route path="/signup" element = {<Register/>}/>
-      <Route path="/" element = {<Dashboard/>}/>
+      <Route path="/dashboard" element = {<Dashboard/>}/>
       </Routes>
       </BrowserRouter>
   );
