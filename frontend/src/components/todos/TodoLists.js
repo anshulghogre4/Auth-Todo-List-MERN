@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react'
 function TodoLists() {
 
   const [userTodos, setUserTodos] = useState(null);
-  const [userTasks, setUserTasks] = useState(null);
+  
 
-      console.log(userTodos)
+      
     const fetchUserTodos = async () => {
           const resp = await axios.get("/api/todo")
 
@@ -14,14 +14,11 @@ function TodoLists() {
 
             if (resp.data.todos.length >0) {
               setUserTodos(resp.data.todos);
-              setUserTasks(resp.data.todos);
+             
             }
     }
   
-        useEffect(()=>{
-          fetchUserTodos()
-          
-        }, [userTodos]);
+       
 
       //for edit 
 
@@ -67,19 +64,19 @@ function TodoLists() {
                     setTasks("");
             }
 
-            //getting all tasks for the title
-              const [titleTasks, setTitleTasks] = useState(null)
+            // //getting all tasks for the title
+            //   const [titleTasks, setTitleTasks] = useState(null)
 
-            const getTasksForTitle  = async (props) =>{
+            // const getTasksForTitle  = async (props) =>{
 
-              const resp = await axios.get(`/api/TaskInTodo/${props}`)
+            //   const resp = await axios.get(`/api/TaskInTodo/${props}`)
 
-                console.log("checking all tasks",resp)
+            //     console.log("checking all tasks",resp)
                
-              if (resp.data.todo.Tasks.length >0) {
-                setTitleTasks(resp.data.todo);
-              }
-            }
+            //   if (resp.data.todo.Tasks.length >0) {
+            //     setTitleTasks(resp.data.todo);
+            //   }
+            // }
             
 
             //editing a task in todo title
@@ -107,8 +104,78 @@ function TodoLists() {
                 console.log(resp);
             };
 
+                //Searching todo or title
+
+       const [search, setSearch] = useState("");
+
+      
+         const submitSearch = async () =>{
+          const resp = await axios.get("/toSearch",{
+            params:{
+              search
+            } }   )
+
+            console.log("searching... " ,resp);
+
+
+            if (resp.data.searchedTodos.length === 0) {
+             
+                 alert("Searched todo or task dosen't exist!")
+            }
+
+           setUserTodos(resp.data.searchedTodos)
+         }
+
+       const handleSearch = async (e) => {
+                e.preventDefault()
+                submitSearch();
+
+
+       }
+
+       useEffect(()=>{
+        if ( search.length===0 ) {
+          fetchUserTodos()
+          return
+        }
+        submitSearch();
+
+        
+      }, [userTodos,search]);
+           
+
+
   return (
+
+    <div>
+      <form className='todoForm flex flex-row items-center justify-between border-sold border-2 w-[50rem] h-[5rem] rounded-[1rem] bg-[white] mb-[1rem]  'onSubmit={handleSearch} >
+    <div>
+  <input type="text" placeholder="Enter to search" className='w-[10rem] m-[1rem] px-[1rem] rounded-[0.5rem] border-sold border-2 placeholder:italic  placeholder:relative placeholder:left-[0.1rem] placeholder:ml-4 h-[3rem] focus:outline-none focus:ring-[0.3rem] focus:ring-violet-700 '
+    value={search}
+  onChange={(e)=>{setSearch(e.target.value)}}
+  ></input>
+  <button type='submit' className='text-[#242B2E] bg-[#CAD5E2] px-[3rem] py-[0.5em] rounded-[0.5rem] pointer-cursor font-bold active:bg-violet-700 active:text-white'  >Search</button>
+  </div>
+
+  <div className='flex flex-row items-center justify-center space-x-4 mr-[1rem]'>
+    <p>
+      Sort 
+    </p> 
+    <select  className=' rounded-[0.5rem]  border-solid border-2 border-bg-gray-300' name="sorting" id="sort">
+<option   value="">Select Option</option>
+<option value="creation"> By Creation</option>
+<option value="updation">By Updation</option>
+</select>
+  </div>
+
+
+  </form>
+
+
+
     <div className='shadow-md bg-slate-100/50  w-[50rem] mx-auto mt-[1rem]'>
+
+      
       {userTodos && userTodos.map((user)=>{
           
        return <div className='overflow-hidden '>
@@ -184,7 +251,7 @@ function TodoLists() {
 
 
        
-
+      </div>
     </div>
   )
 }
