@@ -117,7 +117,7 @@ function TodoLists() {
 
             console.log("searching... " ,resp);
 
-
+              //this is not working
             if (resp.data.searchedTodos.length === 0) {
              
                  alert("Searched todo or task dosen't exist!")
@@ -138,9 +138,7 @@ function TodoLists() {
           fetchUserTodos()
           return
         }
-        submitSearch();
-
-        
+    
       }, [userTodos,search]);
            
 
