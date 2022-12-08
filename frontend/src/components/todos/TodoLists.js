@@ -10,12 +10,12 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
 
 
   useEffect(()=>{
-  //   if ( search.length===0 ) {
+    if ( search.length===0 ) {
      fetchUserTodos()
-  //     return
-  //   }
+      return
+       }
 
-  }, []);
+  }, [search]);
 
       
   
@@ -131,7 +131,7 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
                  setSearch("");
                  fetchUserTodos();
             }
-            
+
             if (search === "" ) {
               alert("please type to search")
               
