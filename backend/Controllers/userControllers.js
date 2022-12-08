@@ -96,7 +96,10 @@ const auth = require("../middleware/auth.js");
                 user
            })
         }else{
-           return  res.status(400).send("Password didn't match!")
+            
+            res.status(400).json({
+                success : false,
+            })
         }
         
     } catch (error) {

@@ -1,26 +1,27 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-function TodoLists() {
+function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
 
-  const [userTodos, setUserTodos] = useState(null);
   
+  const [tasks, setTasks] = useState("");
+  const [search, setSearch] = useState("");
+
+
+
+  useEffect(()=>{
+  //   if ( search.length===0 ) {
+     fetchUserTodos()
+  //     return
+  //   }
+
+  }, []);
 
       
-    const fetchUserTodos = async () => {
-          const resp = await axios.get("/api/todo")
-
-          
-
-            if (resp.data.todos.length >0) {
-              setUserTodos(resp.data.todos);
-             
-            }
-    }
   
        
 
-      //for edit 
+      //for Title edit 
 
       const handleEditTitle = async (user) => {
         const newTitle = prompt("Enter New Title");
@@ -31,6 +32,7 @@ function TodoLists() {
           const resp = await axios.put(`/api/editATodo/${user._id}`,{
             Title : newTitle
           } )
+          fetchUserTodos();
           console.log(resp);
         }
 
@@ -41,12 +43,13 @@ function TodoLists() {
           const handleDeleteTitle= async (user) => {
               const resp = await axios.delete(`/api/deleteATodo/${user._id}`)
               console.log(resp);
+              fetchUserTodos()
           };
 
             //to create a task inside the specific todo
-            const [tasks, setTasks] = useState("")
-                console.log(tasks)
-
+           
+                
+            console.log(tasks)
             const  handdleTasksForTitle = async (title) =>{
                  
 
@@ -62,6 +65,7 @@ function TodoLists() {
                   const resp = await axios.put(`/api/insertTaskInTodo/${title}`,data)
                     console.log(resp.data.todo.Tasks);
                     setTasks("");
+                    fetchUserTodos()
             }
 
             // //getting all tasks for the title
@@ -91,6 +95,8 @@ function TodoLists() {
                   newTaskText : newTask
                 } )
                 console.log(resp);
+                fetchUserTodos()
+
               }
       
             }
@@ -102,11 +108,12 @@ function TodoLists() {
                   taskToBeDeleted : index
                 })
                 console.log(resp);
+                fetchUserTodos()
             };
 
                 //Searching todo or title
 
-       const [search, setSearch] = useState("");
+      
 
       
          const submitSearch = async () =>{
@@ -118,29 +125,54 @@ function TodoLists() {
             console.log("searching... " ,resp);
 
               //this is not working
-            if (resp.data.message=== "No such todo or task exist!") {
+            if (resp.data.message=== "No such todo or task exist!" ) {
              
                  alert("Searched todo or task dosen't exist!")
                  setSearch("");
+                 fetchUserTodos();
             }
+            
+            if (search === "" ) {
+              alert("please type to search")
+              
+         }
 
            setUserTodos(resp.data.searchedTodos)
+
          }
 
        const handleSearch = async (e) => {
                 e.preventDefault()
                 submitSearch();
+                
 
 
        }
 
-       useEffect(()=>{
-        if ( search.length===0 ) {
-          fetchUserTodos()
-          return
-        }
+      //sort by creation
+
+       const [creationDate, setCreationDate] = useState(null);
+
+       const todoCreationDate = async () => {
+
+        const resp = await axios.get("/sortByDateAndTime");
+        console.log("sort by creation",resp.data.sortedTodosAtCreation);
+          setUserTodos(resp.data.sortedTodosAtCreation);
+          setCreationDate(resp.data.sortedTodosAtCreation)
+       }
+
     
-      }, [userTodos,search]);
+
+       const [updationDate, setUpdationDate] = useState(null);
+        //sort by updation
+       const todoUpdationDate = async () => {
+
+        const resp = await axios.get("/sortByDateAndTime");
+        console.log("sort by updation",resp.data.sortedTodosAtUpdation);
+          setUserTodos(resp.data.sortedTodosAtUpdation);
+          setUpdationDate(resp.data.sortedTodosAtUpdation);
+       }
+
            
 
 
@@ -160,11 +192,13 @@ function TodoLists() {
     <p>
       Sort 
     </p> 
-    <select  className=' rounded-[0.5rem]  border-solid border-2 border-bg-gray-300' name="sorting" id="sort">
+    {/* <select onChange={}  value={}  className=' rounded-[0.5rem]   border-solid border-2 border-bg-gray-300' name="sorting" id="sort">
 <option   value="">Select Option</option>
-<option value="creation"> By Creation</option>
+<option value="creation"   > By Creation</option>
 <option value="updation">By Updation</option>
-</select>
+</select> */}
+    <button type='button' className='text-[#242B2E] bg-[#CAD5E2] px-[1rem] py-[0.5em] rounded-[0.5rem] pointer-cursor font-bold active:bg-violet-700 active:text-white'  onClick={todoCreationDate}  >by creation</button>
+    <button type='button' className='text-[#242B2E] bg-[#CAD5E2] px-[1rem] py-[0.5em] rounded-[0.5rem] pointer-cursor font-bold active:bg-violet-700 active:text-white'  onClick={todoUpdationDate}  >by updation</button>
   </div>
 
 

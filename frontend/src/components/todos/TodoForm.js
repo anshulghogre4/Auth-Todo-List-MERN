@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 
-function TodoForm() {
+function TodoForm( {fetchUserTodos} ) {
 
       const [title, setTitle] = useState("")
 
@@ -16,11 +16,10 @@ function TodoForm() {
         Title: title
       }
 
-
-      
       const resp = await axios.post("/api/todo/", data)
         console.log(resp);
         setTitle("");
+        fetchUserTodos();
 
      }
 

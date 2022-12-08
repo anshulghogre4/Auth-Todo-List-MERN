@@ -20,11 +20,12 @@ function Login() {
             console.log(resp);
              
 
-           if (resp.data.success) {
+            
+           if (resp.data.success === true) {
             navigateTo("/dashboard");
             window.alert("Login Successfull!");
-           } else {
-            toast.error("Invalid Credentials")
+           } else if(resp.data.success === false) {
+            window.alert("Invalid credentials!");
            }
 
         }
