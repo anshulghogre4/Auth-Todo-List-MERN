@@ -118,9 +118,10 @@ function TodoLists() {
             console.log("searching... " ,resp);
 
               //this is not working
-            if (resp.data.searchedTodos.length === 0) {
+            if (resp.data.message=== "No such todo or task exist!") {
              
                  alert("Searched todo or task dosen't exist!")
+                 setSearch("");
             }
 
            setUserTodos(resp.data.searchedTodos)
@@ -193,9 +194,9 @@ function TodoLists() {
         <button className='bg-gray-300 active:bg-gray-400 px-[0.8rem] rounded-[0.3rem]'
               
           onClick={()=>{handleEditTitle(user)}}
-        
+         
         >Edit</button>
-        <button className='bg-red-300 active:bg-red-400 px-[0.8rem] rounded-[0.3rem]'  
+        <button className='bg-red-300 active:bg-red-400 px-[0.8rem] rounded-[0.3rem]' 
           onClick={()=>{
             handleDeleteTitle(user)
           }}
@@ -218,7 +219,7 @@ function TodoLists() {
             />
             </div>
             <div>
-            <button   type='button' onClick={()=>handdleTasksForTitle(user._id)}   className=' relative bg-gray-300 active:bg-gray-400 px-[0.8rem] rounded-[0.3rem] top-[0.8rem] '>Add</button>
+            <button   type='button' onClick={()=>handdleTasksForTitle(user._id)}   className=' relative bg-gray-300 active:bg-gray-400 px-[0.8rem] rounded-[0.3rem] top-[0.8rem] ' >Add</button>
             </div>
           </div>
             {/* Tasks inside title */}
@@ -226,7 +227,7 @@ function TodoLists() {
                    { user.Tasks.map((tasks,index)=>{
                 return (<div className=' flex flex-row items-center justify-between'>
              <div>
-             <p className="p-[1.2rem]" >{tasks}</p>
+             <p className="p-[1.2rem]" key={user._id} >{tasks}</p>
              </div>
              <div  className='flex flex-row items-center justify-between mr-[2rem] space-x-[2rem]'>
              <button className='bg-gray-300 active:bg-gray-400 px-[0.8rem] rounded-[0.3rem]' onClick={()=>{handleEditTaskForTitle(user,index)}}  >Edit</button>
