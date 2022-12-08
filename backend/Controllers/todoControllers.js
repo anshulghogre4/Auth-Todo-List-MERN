@@ -309,7 +309,7 @@ exports.toSearch = async (req, res) =>{
         const {search} = req.query;
         console.log("-->",search);
         if (!search) {
-            res.status(401).send("Please enter text to search!")
+          return  res.status(400).send("Please enter text to search!")
         }
     
         const searchedTodos = await Todo.find(  {  $and :[ {userID : uID},{$or : [{"Title": {$regex: search, $options:'i'}},{"Tasks": {$regex: search, $options:'i'}}]}]})

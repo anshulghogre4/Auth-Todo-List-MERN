@@ -11,6 +11,7 @@ function Login() {
      
         const submitLogin = async (e) =>{
             
+          try {
             e.preventDefault();
             const data = {
               email,
@@ -18,16 +19,22 @@ function Login() {
             };
             const resp = await axios.post("/api/u/login",data);
             console.log(resp);
-             
-
             
            if (resp.data.success === true) {
             navigateTo("/dashboard");
             window.alert("Login Successfull!");
-           } else if(resp.data.success === false) {
-            window.alert("Invalid credentials!");
+           } 
+           
+           
+           if(resp.status === 400 || resp.status === 401){
+            alert("Invalid Crenditals!")
            }
-
+          } catch (error) {
+            console.log(error);
+            alert("Invalid Credentials!")
+          }
+             
+            
         }
 
 

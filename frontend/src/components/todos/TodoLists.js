@@ -117,27 +117,34 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
 
       
          const submitSearch = async () =>{
-          const resp = await axios.get("/toSearch",{
-            params:{
-              search
-            } }   )
 
-            console.log("searching... " ,resp);
-
-              //this is not working
-            if (resp.data.message=== "No such todo or task exist!" ) {
-             
-                 alert("Searched todo or task dosen't exist!")
-                 setSearch("");
-                 fetchUserTodos();
-            }
-
-            if (search === "" ) {
-              alert("please type to search")
-              
-         }
-
-           setUserTodos(resp.data.searchedTodos)
+          try {
+            const resp = await axios.get("/toSearch",{
+              params:{
+                search
+              } }   )
+  
+              console.log("searching... " ,resp);
+  
+                //this is not working
+              if (resp.data.message=== "No such todo or task exist!" ) {
+               
+                   alert("Searched todo or task dosen't exist!")
+                   setSearch("");
+                   fetchUserTodos();
+              }
+  
+              if (search === "" ) {
+                alert("please type to search")
+                
+           }
+  
+             setUserTodos(resp.data.searchedTodos)
+          } catch (error) {
+            console.log(error);
+            alert("please type to search");
+          }
+         
 
          }
 

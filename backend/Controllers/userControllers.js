@@ -71,12 +71,18 @@ const auth = require("../middleware/auth.js");
         const  {email,password} = req.body;
 
             if (!(email && password)) {
-                res.status(401).send("email and password are required.")
+               res.status(401).send("email and password are required.")
+               console.log("user not found1")
+               return ;
             }
 
         const  user  = await User.findOne({email});
         if (!user) {
-            res.status(400).send("Email doesn't exist,please create account!")
+                console.log("user not found2")
+           res.status(401).json({
+                success : false,
+                message:"Email doesn't exist,please create account!"})
+                return ;
         }
 
         if (user && (await bcryptJS.compare(password,user.password)) ) {
@@ -96,14 +102,15 @@ const auth = require("../middleware/auth.js");
                 user
            })
         }else{
-            
-            res.status(400).json({
-                success : false,
-            })
+           return res.status(401).json({
+            success :false,
+            message : "password didn't matched!"
+           })
         }
         
     } catch (error) {
         console.log(error);
+        console.log("Bad Request");
       return  res.status(401).send("Bad Request");
     }
 };
