@@ -4,7 +4,7 @@ import axios   from "axios";
 import {toast} from "react-hot-toast";
 
 
-function Register() {
+function Register({BASE_URL}) {
           const navigateTo = useNavigate();
         const [userDetails,setUserDetails] = useState({
           firstName : "",
@@ -40,7 +40,7 @@ function Register() {
                 alert("password should be atleast of 8 characters!");
             }
 
-          const resp = await axios.post("/api/u/register",data);
+          const resp = await axios.post(`${BASE_URL}/api/u/register`,data);
           console.log(resp);
 
             if (resp.data.success) {

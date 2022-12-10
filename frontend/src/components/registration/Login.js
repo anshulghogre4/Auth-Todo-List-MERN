@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 import {NavLink,useNavigate} from "react-router-dom";
 import {toast} from "react-hot-toast";
 
-function Login() {
+function Login({BASE_URL}) {
   const navigateTo = useNavigate();
       const [email,setEmail] = useState("");
       const [password, setPassword] =useState("");
@@ -17,7 +17,7 @@ function Login() {
               email,
               password
             };
-            const resp = await axios.post("/api/u/login",data);
+            const resp = await axios.post(`${BASE_URL}/api/u/login`,data);
             console.log(resp);
             
            if (resp.data.success === true) {

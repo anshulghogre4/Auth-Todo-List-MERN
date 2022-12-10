@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
+function TodoLists({fetchUserTodos , userTodos, setUserTodos, BASE_URL}) {
 
   
   const [tasks, setTasks] = useState("");
@@ -29,7 +29,7 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
         if(!newTitle){
           alert("Please enter new tile to change current title.")
         }else{
-          const resp = await axios.put(`/api/editATodo/${user._id}`,{
+          const resp = await axios.put(`${BASE_URL}/api/editATodo/${user._id}`,{
             Title : newTitle
           } )
           fetchUserTodos();
@@ -41,9 +41,9 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
         // to delete title
 
           const handleDeleteTitle= async (user) => {
-              const resp = await axios.delete(`/api/deleteATodo/${user._id}`)
+              const resp = await axios.delete(`${BASE_URL}/api/deleteATodo/${user._id}`)
               console.log(resp);
-              fetchUserTodos()
+              fetchUserTodos();
           };
 
             //to create a task inside the specific todo
@@ -62,7 +62,7 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
                     Tasks:tasks
                   }
 
-                  const resp = await axios.put(`/api/insertTaskInTodo/${title}`,data)
+                  const resp = await axios.put(`${BASE_URL}/api/insertTaskInTodo/${title}`,data)
                     console.log(resp.data.todo.Tasks);
                     setTasks("");
                     fetchUserTodos()
@@ -90,7 +90,7 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
               if(!newTask){
                 alert("Please enter new task to change current task.")
               }else{
-                const resp = await axios.put(`/api/editTaskInTodo/${user._id}`,{
+                const resp = await axios.put(`${BASE_URL}/api/editTaskInTodo/${user._id}`,{
                   taskIndex:index,
                   newTaskText : newTask
                 } )
@@ -104,7 +104,7 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
 
               //deleting a task for a specific todo title
               const handleDeleteTaskForTitle= async (user,index) => {
-                const resp = await axios.put(`/api/deleteTaskInTodo/${user._id}`,{
+                const resp = await axios.put(`${BASE_URL}/api/deleteTaskInTodo/${user._id}`,{
                   taskToBeDeleted : index
                 })
                 console.log(resp);
@@ -119,7 +119,7 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
          const submitSearch = async () =>{
 
           try {
-            const resp = await axios.get("/toSearch",{
+            const resp = await axios.get(`${BASE_URL}/toSearch`,{
               params:{
                 search
               } }   )
@@ -162,7 +162,7 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
 
        const todoCreationDate = async () => {
 
-        const resp = await axios.get("/sortByDateAndTime");
+        const resp = await axios.get(`${BASE_URL}/sortByDateAndTime`);
         console.log("sort by creation",resp.data.sortedTodosAtCreation);
           setUserTodos(resp.data.sortedTodosAtCreation);
           setCreationDate(resp.data.sortedTodosAtCreation)
@@ -174,7 +174,7 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos}) {
         //sort by updation
        const todoUpdationDate = async () => {
 
-        const resp = await axios.get("/sortByDateAndTime");
+        const resp = await axios.get(`${BASE_URL}/sortByDateAndTime`);
         console.log("sort by updation",resp.data.sortedTodosAtUpdation);
           setUserTodos(resp.data.sortedTodosAtUpdation);
           setUpdationDate(resp.data.sortedTodosAtUpdation);
