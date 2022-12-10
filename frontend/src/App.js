@@ -19,7 +19,7 @@ function App() {
     <Routes>
       <Route path="/" element = {<Login  BASE_URL={BASE_URL} />}/>
       <Route path="/signup" element = {<Register  BASE_URL={BASE_URL} />}/>
-      <Route path="/dashboard" element = {<Dashboard  BASE_URL={BASE_URL} />}/>
+      <Route path="/dashboard" element = {<Dashboard/>}/>
       </Routes>
       </BrowserRouter>
   );
