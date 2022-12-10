@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import TodoForm from './todos/TodoForm'
 import TodoLists from './todos/TodoLists'
-function Dashboard({BASE_URL}) {
+function Dashboard() {
   
-  
+  const BASE_URL = "https://auth-todo-list-mern-production-e11d.up.railway.app";
   
   const [userTodos, setUserTodos] = useState(null);
   //to get all todos
