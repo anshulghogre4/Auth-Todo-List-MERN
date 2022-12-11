@@ -26,7 +26,6 @@ function Login({BASE_URL}) {
                 console.log(resp.data.token);
             Cookies.set("token", resp.data.token, {
               expires : 20,
-              path : "/",
             })
             navigateTo("/dashboard");
             window.alert("Login Successfull!");
