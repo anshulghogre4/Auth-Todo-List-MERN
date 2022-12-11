@@ -5,9 +5,10 @@ const { model } = require("mongoose");
 
 const auth = (req, res, next) =>{
 
-    const {token} =  req.cookies || req.header; 
+    const {token} =  req.cookies || req.headers; 
     console.log(req.cookies); 
-
+    console.log(req.headers); 
+        console.log(token);
     if (!token){
         return res.status(403).send("Access denied!")
     }

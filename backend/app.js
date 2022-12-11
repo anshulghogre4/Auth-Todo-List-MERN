@@ -8,16 +8,12 @@ const userRoutes = require("./Routes/userRoutes");
 const cookieParser = require('cookie-parser');
 const auth = require("./middleware/auth");
 
-const corsOptions = {
-    origin : function(origin , callback){
-      return callback(null, true);
-    },
-    optionsSuccessStatus: 200,
-    credentials: true,
-    }
 
  
-app.use(cors(corsOptions));
+app.use(cors({
+  credentials : true,
+  origin : "https://auth-todo-list-mern.vercel.app"
+}));
 app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

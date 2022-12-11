@@ -94,8 +94,8 @@ const auth = require("../middleware/auth.js");
            const  options = {
                 expires : new Date(Date.now()+ 3*24*60*60*1000 ), //to expire in 3 days for 3 hours (3*60*60*1000)
                 httpOnly : true,
-                sameSite: "None",
-                secure: true,
+                sameSite :'None',
+                secure : true
            }
                 console.log("--->logged in")
          return  res.status(200).cookie("token",token,options).json({
