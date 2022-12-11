@@ -2,7 +2,7 @@ import axios from 'axios';
 import React,{useState} from 'react';
 import {NavLink,useNavigate} from "react-router-dom";
 import {toast} from "react-hot-toast";
-import Cookies from 'js-cookie';
+
 
 function Login({BASE_URL}) {
   const navigateTo = useNavigate();
@@ -24,9 +24,9 @@ function Login({BASE_URL}) {
             
            if (resp.data.success === true) {
                 console.log(resp.data.token);
-            Cookies.set("token", resp.data.token, {
-              expires : 20,
-            })
+            // Cookies.set("token", resp.data.token, {
+            //   expires : 20,
+            // })
             navigateTo("/dashboard");
             window.alert("Login Successfull!");
            } 
