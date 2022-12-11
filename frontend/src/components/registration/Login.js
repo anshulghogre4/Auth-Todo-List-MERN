@@ -18,7 +18,7 @@ function Login({BASE_URL}) {
               email,
               password
             };
-            const resp = await axios.post(`${BASE_URL}/api/u/login`,data);
+            const resp = await axios.post(`${BASE_URL}/api/u/login`, data, { withCredentials: true });
             console.log(resp);
             
            if (resp.data.success === true) {
