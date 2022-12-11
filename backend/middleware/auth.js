@@ -5,11 +5,11 @@ const { model } = require("mongoose");
 
 const auth = (req, res, next) =>{
 
-    const {token} =  req.cookies || req.headers; 
+    const {token} =  req.cookies || req.header; 
     console.log(req.cookies); 
 
     if (!token){
-        return res.status(403).send("acces denied!")
+        return res.status(403).send("Access denied!")
     }
 
     //verify token

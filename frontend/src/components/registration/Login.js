@@ -23,10 +23,11 @@ function Login({BASE_URL}) {
             
            if (resp.data.success === true) {
             navigateTo("/dashboard");
-            Cookies.set("token", resp.data.token, {
-              expires: 20,
-              path: "/",
-            });
+            // Cookies.set("token", resp.data.token, {
+            //   expires: 20,
+            //   path: "/",
+            // });
+            console.log(resp.data.token);
             window.alert("Login Successfull!");
            } 
            
