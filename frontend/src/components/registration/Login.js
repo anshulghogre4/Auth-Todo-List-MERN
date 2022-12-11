@@ -3,7 +3,6 @@ import React,{useState} from 'react';
 import {NavLink,useNavigate} from "react-router-dom";
 import {toast} from "react-hot-toast";
 
-
 function Login({BASE_URL}) {
   const navigateTo = useNavigate();
       const [email,setEmail] = useState("");
@@ -18,15 +17,10 @@ function Login({BASE_URL}) {
               email,
               password
             };
-              console.log("this is user")
             const resp = await axios.post(`${BASE_URL}/api/u/login`,data);
             console.log(resp);
             
            if (resp.data.success === true) {
-                console.log(resp.data.token);
-            // Cookies.set("token", resp.data.token, {
-            //   expires : 20,
-            // })
             navigateTo("/dashboard");
             window.alert("Login Successfull!");
            } 
