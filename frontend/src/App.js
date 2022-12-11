@@ -7,7 +7,7 @@ import  {Toaster} from "react-hot-toast"
 
 function App() {
 
-    // const BASE_URL = "https://auth-todo-list-mern-production-e11d.up.railway.app";
+    const BASE_URL = "https://auth-todo-list-mern-production-e11d.up.railway.app";
       
 
   return (
@@ -17,8 +17,8 @@ function App() {
     reverseOrder={true}
     />
     <Routes>
-      <Route path="/" element = {<Login/>}/>
-      <Route path="/signup" element = {<Register/>}/>
+      <Route path="/" element = {<Login  BASE_URL={BASE_URL} />}/>
+      <Route path="/signup" element = {<Register  BASE_URL={BASE_URL} />}/>
       <Route path="/dashboard" element = {<Dashboard/>}/>
       </Routes>
       </BrowserRouter>
