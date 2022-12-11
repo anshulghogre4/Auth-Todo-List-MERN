@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
 import axios   from "axios"; 
 import {toast} from "react-hot-toast";
-
+import Cookies from 'js-cookie';
 
 function Register({BASE_URL}) {
           const navigateTo = useNavigate();
