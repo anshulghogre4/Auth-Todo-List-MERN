@@ -4,8 +4,8 @@ const { model } = require("mongoose");
 
 
 const auth = (req, res, next) =>{
-
-    const {token} =  req.cookies || req.headers; 
+    const token = req.headers.authorization.split(" ")[1];
+    // const {token} =  req.cookies || req.headers; 
     console.log(req.cookies); 
     console.log(req.headers); 
         console.log(token);

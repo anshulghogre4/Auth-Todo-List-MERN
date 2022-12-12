@@ -6,7 +6,8 @@ function TodoLists({fetchUserTodos , userTodos, setUserTodos, BASE_URL}) {
   
   const [tasks, setTasks] = useState("");
   const [search, setSearch] = useState("");
-
+  const token = sessionStorage.getItem("token");
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
 
   useEffect(()=>{

@@ -20,7 +20,8 @@ function Login({BASE_URL}) {
             };
             const resp = await axios.post(`${BASE_URL}/api/u/login`, data, {withCredentials : true});
             console.log(resp);
-            
+            // save token in session storage
+           sessionStorage.setItem("token", resp.data.token);
            if (resp.data.success === true) {
             navigateTo("/dashboard");
               

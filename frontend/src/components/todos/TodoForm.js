@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 function TodoForm( {fetchUserTodos, BASE_URL} ) {
 
       const [title, setTitle] = useState("")
-
+      const token = sessionStorage.getItem("token");
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`  
       console.log(title);
 
           
