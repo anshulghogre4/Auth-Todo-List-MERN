@@ -4,13 +4,18 @@
 
 ## Task
 
-- In this assignment I have to create full backend procedure for the todo list with MERN.
+- In this assignment I have to create full stack MERN application with authetication and after this it should get to the dashboard of my todo.
+
 - Where Schema model will be having:
 
-  - Title (Title for all the task e.g Sunday)
-  - Tasks ( eg. on Sunday I'll do shopping, family time, movies etc.)
+  - User Schema (Username,password,email)
 
-- No of controllers will be there for the title and Tasks
+  - Title Schema
+
+    - Title (Title for all the task e.g Sunday)
+    - Tasks ( eg. on Sunday I'll do shopping, family time, movies etc.)
+
+- No of controllers will be there for the title,tasks and user
 
 - First Intention to create title then after adding it to the list I'll add extra task under it.
 
@@ -26,6 +31,43 @@
 
 ---
 
-## Plan
+## Planning
 
-![pic1](./PlanImage.png)
+### Frontend planning
+
+![pic1](./Frontend_Plan.png)
+
+---
+
+### Backend planning
+
+![pic2](./Backend_Plan.png)
+
+### After Implementation shots
+
+![ss1](./screenshots/login.png)
+![ss2](./screenshots/register.png)
+![ss3](./screenshots/dashboard.png)
+
+---
+
+### Time taken to complete
+
+- Honest time taken to complete this is 2 weeks
+
+---
+
+### Learnings
+
+- Learned the CRUD application in backend and understood the architecture of node.js
+- Understood how to use react and use it with backend.
+- overall gave me the confidence to do full stack project
+
+---
+
+## Live Links
+
+- Front end...
+  [Vercel](https://auth-todo-list-mern.vercel.app/)
+- Back end...
+  [Railway](https://auth-todo-list-mern-production-e11d.up.railway.app/)
